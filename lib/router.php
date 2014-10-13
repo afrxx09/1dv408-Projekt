@@ -34,8 +34,9 @@ class Router{
 		$className = '\controllers\\' . ucfirst($this->controller) . 'Controller';
 		if(class_exists($className)){
 			$controller = new $className();
+			$controller->setParams($this->params);
 			if(method_exists($controller, $this->action)){
-				return call_user_func_array(array($controller, $this->action), $this->params);
+				return call_user_func(array($controller, $this->action));
 			}
 			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controller);
 		}
