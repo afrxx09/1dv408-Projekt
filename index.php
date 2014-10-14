@@ -10,7 +10,10 @@ require_once(ROOT_DIR . 'lib' . DS . 'autoload.php');
 
 try{
 	$router = new Router();
-	$router->dispatch();
+	//$router->render();
+	$layoutView = new layoutView();
+	$layoutView->add('content', $router->dispatch());
+	$layoutView->echoLayout();
 }
 catch(\Exception $e){
 	if(\Config::DEBUG){

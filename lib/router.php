@@ -5,6 +5,8 @@ class Router{
 	private $controller;
 	private $action;
 	private $params = array();
+	
+	private $content = '';
 
 	public function __construct(){
 		$this->getURL();

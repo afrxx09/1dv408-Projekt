@@ -2,11 +2,16 @@
 namespace controllers;
 
 class CategoryController extends \core\AppController{
+	private $view;
+	
+	public function __construct(){
+		$this->view = new \views\CategoryView();
+	}
 	
 	public function index(){
-		/** try class inheritence from AppController */
-		//echo $this->asd();
-		echo 'category index';
+		//return $this->view->index($this->model->getCategories());
+		$viewVars = array('indexMessage' => 'Dynamiskt hej från category#index');
+		return $this->view->evaluate(ROOT_DIR . 'app\views\category\index.php', $viewVars);
 	}
 
 	public function view(){
