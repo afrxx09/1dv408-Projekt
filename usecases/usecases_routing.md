@@ -13,6 +13,7 @@
 2. Find the "private static $routes array"
 3. Add key "root" with value"''"(empty string) to array ```'root' => '' ´´´
 4. Go to web broswer and visit the root path of project
+
 ####Expected outcome
 Exception error: Can not find controller class "welcome"( or what ever was set as DEFAULT_CONTROLLER )
 
@@ -20,6 +21,7 @@ Exception error: Can not find controller class "welcome"( or what ever was set a
 1. UC1: step 1 and 2
 2. Add key 'myRoute' => 'myController#theAction'
 3. go to the relative url of the projekt: "mycontroller/theaction" (example: localhost/MyProject/myController/theaction)
+
 ####Expected outcome
 Exception error: Can not find controller class "mycontroller"
 
@@ -31,20 +33,25 @@ Exception error: Can not find controller class "mycontroller"
 	* "category/add" (example: localhost/MyProject/category/add)
 	* "category/create" (example: localhost/MyProject/category/create)
 	* "category/save" (example: localhost/MyProject/category/save)
+
 ####Expected outcome
 Exception error: Can not find controller class "category"
+
 ####Alternative Scenarios
 3. Visit the folowing relative url's:
 	* "category/edit/3"  (example: localhost/MyProject/category/edit/3)
 	* "category/delete/2" (example: localhost/MyProject/category/delete/2)
 	* "category/view/1" (example: localhost/MyProject/category/view/1)
+
 ####Expected outcome
 * Exception error: Can not find controller class "category"
+
 ####Alternative Scenarios
 3.1 Visit the folowing relative url's:
 	* "category/edit"  (example: localhost/MyProject/category/edit/3)
 	* "category/delete" (example: localhost/MyProject/category/delete/2)
 	* "category/view" (example: localhost/MyProject/category/view/1)
+
 ####Expected outcome
 * Exception error: "Action: edit in controller: category requires a parameter"
 * Exception error: "Action: delete in controller: category requires a parameter"
@@ -57,10 +64,12 @@ Exception error: Can not find controller class "category"
 	* "product" (example: localhost/MyProject/product/)
 	* "product/add" (example: localhost/MyProject/product/add)
 	* "product/delete/1" (example: localhost/MyProject/product/delete/1)
+
 ####Expected outcome
 	* Exception error: Can not find controller class "product"
 	* Exception error: Can not find controller class "product"
 	* Exception error: Can not find controller class "product"
+
 ####Alternative Scenarios
 3.1 Visit the folowing relative url's:
 	3.1.1 "product/delete" (example: localhost/MyProject/product/delete)
