@@ -1,7 +1,9 @@
 <?php
 
 class Controller{
+	
 	protected $params;
+	protected $view;
 
 	protected function redirectTo($controller = null, $action = null, $param = null){
 		$path = ($controller !== null) ? $controller : \Config::DEFAULT_CONTROLLER;
@@ -17,5 +19,9 @@ class Controller{
 
 	public function setParams($params){
 		$this->params = $params;
+	}
+	
+	public function getView(){
+		return $this->view;
 	}
 }

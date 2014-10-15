@@ -2,8 +2,8 @@
 namespace views;
 
 class CategoryView extends \core\AppView{
-	
-	public function index(){
-		return 'class: CategoryView, method: index()';
+
+	public function view($id){
+		return '<p>class: Category, view: view, index: ' . $id . '</p>';
 	}
 }

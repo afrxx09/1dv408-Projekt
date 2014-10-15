@@ -3,7 +3,7 @@
 
 	<head>
 		<title></title>
-		<meta charset="utf-8" />
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	</head>
 
 	<body>
@@ -17,6 +17,10 @@
 			
 			<div id="content">
 				<?php echo $this->get('content') ?>
+			</div>
+
+			<div id="footer">
+
 			</div>
 			
 		</div>

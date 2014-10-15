@@ -5,10 +5,11 @@ class Router{
 	private $controller;
 	private $action;
 	private $params = array();
-	
-	private $content = '';
 
-	public function __construct(){
+	private $layoutView;
+
+	public function __construct(LayoutView $layoutView){
+		$this->layoutView = $layoutView;
 		$this->getURL();
 		$this->parseURL();
 
@@ -38,10 +39,26 @@ class Router{
 			$controller = new $className();
 			$controller->setParams($this->params);
 			if(method_exists($controller, $this->action)){
-				return call_user_func(array($controller, $this->action));
+				$result = call_user_func(array($controller, $this->action));
+				if($result !== null){
+					$this->layoutView->add('content', $result);
+				}
+				else{
+					$view = $controller->getView();
+					$content = $view->build($this->controller, $this->action);
+					$this->layoutView->add('content', $content);
+					//$content = $this->layoutView->build($this->controller, $this->action, $controller->getViewVars());
+					//$this->layoutView->add('content', $content);
+				}	
+				$this->render();
 			}
 			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controller);
 		}
 		throw new \Exception('Could not find controller class: ' . $this->controller);
+	}
+
+	public function render(){
+		echo $this->layoutView->render();
+		exit;
 	}
 }

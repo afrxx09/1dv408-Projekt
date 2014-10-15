@@ -9,11 +9,9 @@ define('ROOT_PATH', '/' . basename(dirname(__FILE__)) . '/');
 require_once(ROOT_DIR . 'lib' . DS . 'autoload.php');
 
 try{
-	$router = new Router();
-	//$router->render();
 	$layoutView = new layoutView();
-	$layoutView->add('content', $router->dispatch());
-	$layoutView->echoLayout();
+	$router = new Router($layoutView);
+	$router->dispatch();
 }
 catch(\Exception $e){
 	if(\Config::DEBUG){
