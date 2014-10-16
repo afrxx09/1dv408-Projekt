@@ -37,7 +37,6 @@ class Routes{
 	*	@return string, relative url-path
 	*/
 	public static function getRoute($route, $param = array()){
-		var_dump(ROOT_PATH);
 		$route = explode('#', $route);
 		$routeName = $route[0];
 		$routeAction = isset($route[1]) ? $route[1] : \Config::DEFAULT_ACTION;
@@ -52,7 +51,7 @@ class Routes{
 			$p = explode('#', $routes);
 			$controller = $p[0];
 			$action = isset($p[1]) ? $p[1] . '/' : null;
-			return ROOT_PATH . $controller . '/' . $action;
+			return rtrim(ROOT_PATH . $controller . '/' . $action, '/') . '/';
 		}
 
 		/** Validate that standard or specific rout from list exists */
@@ -71,7 +70,7 @@ class Routes{
 		if(!empty($param)){
 			$action = str_replace('{' . key($param) . '}', current($param), $action);
 		}
-		return ROOT_PATH . $routeName . '/' . $action;
+		return rtrim(ROOT_PATH . $routeName . '/' . $action, '/') . '/';
 	}
 
 	public static function match($controller, $action, $params){

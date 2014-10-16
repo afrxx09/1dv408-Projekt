@@ -24,4 +24,11 @@ class Controller{
 	public function getView(){
 		return $this->view;
 	}
+
+	public function getScript(){
+		return $this->view->getScript();
+	}
+	public function getCSS(){
+		return $this->view->getCSS();
+	}
 }

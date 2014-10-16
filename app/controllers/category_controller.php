@@ -8,7 +8,8 @@ class CategoryController extends \core\AppController{
 	}
 	
 	public function index(){
-		$this->view->setVar('indexMessage', 'Dynamiskt hej från category#index');
+		$categories  = array('Category 1', 'Category two', 'Category tre', 'Category yon');
+		$this->view->setVar('categories', $categories);
 	}
 
 	public function view(){
@@ -16,6 +17,6 @@ class CategoryController extends \core\AppController{
 	}
 
 	public function edit(){
-		//return $this->view->edit($this->params[0]);
+		
 	}
 }

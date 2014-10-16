@@ -47,9 +47,9 @@ class Router{
 					$view = $controller->getView();
 					$content = $view->build($this->controller, $this->action);
 					$this->layoutView->add('content', $content);
-					//$content = $this->layoutView->build($this->controller, $this->action, $controller->getViewVars());
-					//$this->layoutView->add('content', $content);
-				}	
+				}
+				$this->layoutView->setScript($controller->getScript());
+				$this->layoutView->setCSS($controller->getCSS());
 				$this->render();
 			}
 			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controller);

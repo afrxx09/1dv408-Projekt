@@ -4,6 +4,7 @@
 	<head>
 		<title></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<?= $this->get('css') ?>
 	</head>
 
 	<body>
@@ -13,17 +14,19 @@
 				<h1>Product Catalog built with Framework</h1>
 			</div>
 			
-			<?php echo $this->partial('menu') ?>
+			<?= $this->partial('menu') ?>
 			
 			<div id="content">
-				<?php echo $this->get('content') ?>
+				<?= $this->get('content') ?>
 			</div>
 
+			<div id="footer-pusher"></div>
 			<div id="footer">
-
+				<p>footer</p>
 			</div>
 			
 		</div>
+		<?= $this->get('script') ?>
 	</body>
 
 </html>
