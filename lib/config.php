@@ -1,7 +1,7 @@
 <?php
 
 class Config{
-	const DEFAULT_CONTROLLER = 'category';
+	const DEFAULT_CONTROLLER = 'StaticPages';
 	const DEFAULT_ACTION = 'index';
 
 	const DB_PASSWORD = 'pw';

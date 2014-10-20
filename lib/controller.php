@@ -22,13 +22,9 @@ class Controller{
 	}
 	
 	public function getView(){
-		return $this->view;
-	}
-
-	public function getScript(){
-		return $this->view->getScript();
-	}
-	public function getCSS(){
-		return $this->view->getCSS();
+		if(isset($this->view)){
+			return $this->view;
+		}
+		return new \core\AppView();
 	}
 }

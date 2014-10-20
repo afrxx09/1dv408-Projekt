@@ -2,7 +2,7 @@
 
 class LayoutView extends \View{
 	private $layoutPath;
-	private $content = array();
+	private $content = array('content' =>'', 'css' => '', 'script' => '');
 	
 	public function __construct(){
 		$this->layoutPath = ROOT_DIR . 'app' . DS . 'layout' . DS;

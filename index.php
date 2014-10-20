@@ -7,6 +7,7 @@ define('ROOT_DIR', dirname(__FILE__) . DS);
 define('ROOT_PATH', '/' . basename(dirname(__FILE__)) . '/');
 
 require_once(ROOT_DIR . 'lib' . DS . 'autoload.php');
+require_once(ROOT_DIR . 'app' . DS . 'routes.php');
 
 try{
 	$layoutView = new layoutView();
@@ -15,9 +16,11 @@ try{
 }
 catch(\Exception $e){
 	if(\Config::DEBUG){
+		error_reporting(E_ALL);
 		var_dump($e);
 	}
 	else{
+		error_reporting(0);
 		echo 'Unknown error. Please try again.';
 		error_log(serialize($e) . "\n", 3, ROOT_DIR . \CONFIG::ERROR_LOG);
 	}

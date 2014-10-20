@@ -3,24 +3,43 @@
 class View{
 	
 	protected $vars = array();
+	protected $app_javascript = array();
+	protected $javascript = array();
+	protected $app_css = array();
+	protected $css = array();
 
 	public function setVar($key, $value){
 		$this->vars[$key] = $value;
 	}
 
-	public function build($controller, $action){
-		$file = ROOT_DIR . 'app' . DS . 'views' . DS . $controller . DS . $action . '.php';
-		if(file_exists($file)){
-			return $this->evaluate($file, $this->vars);
+	public function build($dir, $file){
+		$dir = lcfirst($dir);
+		preg_match_all( '/[A-Z]/', $dir, $matches, PREG_OFFSET_CAPTURE );
+		if(!empty($matches)){
+			for($i=0; $i < count($matches[0]); $i++){
+				if(!empty($matches[0][$i])){
+					$m = $matches[0][$i];
+					$dir = substr_replace($dir, '_' . strToLower($m[0]), $m[1] + $i, 1);
+				}
+			}
 		}
-		throw new Exception('Could not not find view file for ' . $controller . ' # ' . $action );
+		$filePath = ROOT_DIR . 'app' . DS . 'views' . DS . $dir . DS . $file . '.php';
+		if(file_exists($filePath)){
+			return $this->evaluate($filePath, $this->vars);
+		}
+		throw new Exception('Could not not find view file ' . $filePath);
 	}
 
 	public function evaluate($viewFile, $viewData = array()){
-		extract($viewData);
-		ob_start();
-		include($viewFile);
-		return ob_get_clean();
+		try{
+			extract($viewData);
+			ob_start();
+			include($viewFile);
+			return ob_get_clean();
+		}
+		catch(\Exception $e){
+			throw new Exception("Error Processing Request");
+		}
 	}
 
 	public function getScript(){
