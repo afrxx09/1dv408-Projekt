@@ -84,7 +84,7 @@ class Routing{
 					foreach($routeActions as $routeAction){
 						if(stripos($routeAction, $actionRequest) !== false){
 							$match = true; 
-							$actionRequest = $routeAction;
+							$actionRequest = str_ireplace('{', '/{', $routeAction);
 						}
 					}
 					if(!$match){
@@ -96,7 +96,7 @@ class Routing{
 					if(empty($param)){
 						throw new \Exception('Action: "' . $actionRequest . '" in controller: "' . $controllerRequest . '" requires a parameter.');
 					}
-					$actionRequest = str_replace('{' . key($param) . '}', '/' . current($param), $actionRequest);
+					$actionRequest = str_replace('{' . key($param) . '}', current($param), $actionRequest);
 				}
 			}
 			return rtrim(ROOT_PATH . $controllerRequest . '/' . $actionRequest, '/') . '/';

@@ -3,10 +3,6 @@ namespace controllers;
 
 class CategoryController extends \core\AppController{
 	
-	public function __construct(){
-		$this->view = new \views\CategoryView();
-	}
-	
 	public function index(){
 		$categories  = array('Category 1', 'Category two', 'Category tre', 'Category yon');
 		$this->view->setVar('categories', $categories);

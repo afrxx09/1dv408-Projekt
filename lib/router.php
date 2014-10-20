@@ -8,6 +8,8 @@ class Router{
 
 	private $controller;
 	private $view;
+	private $model;
+	
 	private $layoutView;
 
 	public function __construct(LayoutView $layoutView){
@@ -15,6 +17,8 @@ class Router{
 		$this->getURL();
 		$this->parseURL();
 		$this->setController();
+		$this->setView();
+		$this->setModel();
 	}
 
 	private function getURL(){
@@ -47,23 +51,44 @@ class Router{
 		}
 		$this->controller = new $class();
 		$this->controller->setParams($this->params);
-		if(!method_exists($this->controller, $this->action)){
-			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controllerName);
+		
+	}
+	
+	private function setView(){
+		$class = '\views\\' . ucfirst($this->controllerName) . 'View';
+		if(class_exists($class)){
+			$this->view = new $class();
 		}
+		else{
+			$this->view = new \core\AppView();
+		}
+		$this->controller->setView($this->view);
+	}
+	private function setModel(){
+		$class = '\models\\' . ucfirst($this->controllerName) . 'Model';
+		if(class_exists($class)){
+			$this->model = new $class();
+		}
+		$this->model = null;
+		$this->controller->setModel($this->model);
 	}
 
 	public function dispatch(){
+		if(!method_exists($this->controller, $this->action)){
+			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controllerName);
+		}
+		
 		$result = call_user_func(array($this->controller, $this->action));
-		$view = $this->controller->getView();
+		//$view = $this->controller->getView();
 		if($result !== null){
 			$this->layoutView->add('content', $result);
 		}
 		else{
-			$content = $view->build($this->controllerName, $this->action);
+			$content = $this->view->build($this->controllerName, $this->action);
 			$this->layoutView->add('content', $content);
 		}
-		$this->layoutView->setScript($view->getScript());
-		$this->layoutView->setCSS($view->getCSS());
+		$this->layoutView->setScript($this->view->getScript());
+		$this->layoutView->setCSS($this->view->getCSS());
 		$this->render();
 	}
 

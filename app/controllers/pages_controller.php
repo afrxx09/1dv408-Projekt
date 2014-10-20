@@ -16,6 +16,5 @@ class PagesController extends \core\AppController{
 	}
 
 	public function contact(){
-		return 'contact';
 	}
 }
