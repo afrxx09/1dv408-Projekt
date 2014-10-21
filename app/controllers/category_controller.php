@@ -4,7 +4,7 @@ namespace controllers;
 class CategoryController extends \core\AppController{
 	
 	public function index(){
-		$categories  = array('Category 1', 'Category two', 'Category tre', 'Category yon');
+		$categories = $this->model->getCategories();
 		$this->view->setVar('categories', $categories);
 	}
 

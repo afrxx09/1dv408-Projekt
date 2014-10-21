@@ -64,12 +64,13 @@ class Router{
 		}
 		$this->controller->setView($this->view);
 	}
+
 	private function setModel(){
 		$class = '\models\\' . ucfirst($this->controllerName) . 'Model';
+		$this->model = null;
 		if(class_exists($class)){
 			$this->model = new $class();
 		}
-		$this->model = null;
 		$this->controller->setModel($this->model);
 	}
 
