@@ -4,7 +4,7 @@ class Controller{
 	
 	protected $params;
 	protected $view;
-	protected $model;
+	public $models = array();
 
 	protected function redirectTo($controller = null, $action = null, $param = null){
 		$path = ($controller !== null) ? $controller : \Config::DEFAULT_CONTROLLER;
@@ -26,16 +26,11 @@ class Controller{
 		$this->view = $view;
 	}
 	
-	public function setModel($model){
-		$this->model = $model;
+	public function __set($key, $val){
+		$this->{$key} = $val;
 	}
 	
-	/*
-	public function getView(){
-		if(isset($this->view)){
-			return $this->view;
-		}
-		return new \core\AppView();
+	public function __get($key){
+		return (isset($this->{$key})) ? $this->{$key} : null;
 	}
-	*/
 }

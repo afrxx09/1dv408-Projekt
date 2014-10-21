@@ -11,8 +11,8 @@ require_once(ROOT_DIR . 'app' . DS . 'routes.php');
 
 try{
 	$layoutView = new layoutView();
-	$router = new Router($layoutView);
-	$router->dispatch();
+	$dispatcher = new Dispatcher($layoutView);
+	$dispatcher->dispatch();
 }
 catch(\Exception $e){
 	if(\Config::DEBUG){

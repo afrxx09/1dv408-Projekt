@@ -1,6 +1,6 @@
 <?php
 
-class Router{
+class Dispatcher{
 	private $url;
 	private $controllerName;
 	private $action;
@@ -18,7 +18,7 @@ class Router{
 		$this->parseURL();
 		$this->setController();
 		$this->setView();
-		$this->setModel();
+		$this->setModel($this->controllerName);
 	}
 
 	private function getURL(){
@@ -32,11 +32,11 @@ class Router{
 		$route = explode('/', $this->url);
 		$root = \Routes::getRoot();
 		if(empty($route[0]) && $root !== null){
-			$this->controllerName = $root[0];
+			$this->controllerName = ucFirst($root[0]);
 			$this->action = isset($root[1]) ? $root[1] : \Config::DEFAULT_ACTION;
 		}
 		else{
-			$this->controllerName = (!empty($route[0])) ? $route[0]: \Config::DEFAULT_CONTROLLER;
+			$this->controllerName = (!empty($route[0])) ? ucFirst($route[0]): \Config::DEFAULT_CONTROLLER;
 			$this->action = (!empty($route[1])) ? $route[1]: \Config::DEFAULT_ACTION;
 			for($i = 2; $i < count($route); $i ++){
 				$this->params[] = $route[$i];
@@ -45,7 +45,7 @@ class Router{
 	}
 
 	private function setController(){
-		$class = '\controllers\\' . ucfirst($this->controllerName) . 'Controller';
+		$class = '\controllers\\' . $this->controllerName . 'Controller';
 		if(!class_exists($class)){
 			throw new \Exception('Could not find controller class: ' . $class);
 		}
@@ -55,7 +55,7 @@ class Router{
 	}
 	
 	private function setView(){
-		$class = '\views\\' . ucfirst($this->controllerName) . 'View';
+		$class = '\views\\' . $this->controllerName . 'View';
 		if(class_exists($class)){
 			$this->view = new $class();
 		}
@@ -65,13 +65,34 @@ class Router{
 		$this->controller->setView($this->view);
 	}
 
-	private function setModel(){
-		$class = '\models\\' . ucfirst($this->controllerName) . 'Model';
-		$this->model = null;
+	private function setModel($controllerName){
+		$class = '\models\\' . $controllerName . 'Model';
 		if(class_exists($class)){
-			$this->model = new $class();
+			$class = new $class($controllerName);
+			$this->controller->{$controllerName} = $class;
+		
+			foreach($this->controller->{$controllerName}->hasOne as $hasOne){
+				$class = '\models\\' . $hasOne . 'Model';
+				if(class_exists($class)){
+					$class = new $class($hasOne);
+					$this->controller->{$controllerName}->$hasOne = $class;
+				}
+			}
+			foreach($this->controller->{$controllerName}->hasMany as $hasMany){
+				$class = '\models\\' . $hasMany . 'Model';
+				if(class_exists($class)){
+					$class = new $class($hasMany);
+					$this->controller->{$controllerName}->$hasMany = $class;
+				}
+			}
+			foreach($this->controller->{$controllerName}->belongsTo as $belongsTo){
+				$class = '\models\\' . $belongsTo . 'Model';
+				if(class_exists($class)){
+					$class = new $class($belongsTo);
+					$this->controller->{$controllerName}->$belongsTo = $class;
+				}
+			}
 		}
-		$this->controller->setModel($this->model);
 	}
 
 	public function dispatch(){
