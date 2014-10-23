@@ -45,7 +45,20 @@ class View{
 	public function getScript(){
 		return array_merge($this->app_javascript, $this->javascript);
 	}
+	
 	public function getCSS(){
 		return array_merge($this->app_css, $this->css);
 	}
+	
+	public function getPost(){
+		$return = array();
+		foreach($_POST as $key => $post){
+			$return[$key] = $this->sanitize($post);
+		}
+		return $return;
+	}
+	
+	protected function sanitize($input) {
+        return filter_var(trim($input), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+    }
 }

@@ -70,26 +70,14 @@ class Dispatcher{
 		if(class_exists($class)){
 			$class = new $class($controllerName);
 			$this->controller->{$controllerName} = $class;
-		
-			foreach($this->controller->{$controllerName}->hasOne as $hasOne){
-				$class = '\models\\' . $hasOne . 'Model';
+			
+			$model = $this->controller->{$controllerName};
+			$relations = array_merge($model->hasOne, $model->hasMany, $model->belongsTo);
+			foreach($relations as $modelName){
+				$class = '\models\\' . $modelName . 'Model';
 				if(class_exists($class)){
-					$class = new $class($hasOne);
-					$this->controller->{$controllerName}->$hasOne = $class;
-				}
-			}
-			foreach($this->controller->{$controllerName}->hasMany as $hasMany){
-				$class = '\models\\' . $hasMany . 'Model';
-				if(class_exists($class)){
-					$class = new $class($hasMany);
-					$this->controller->{$controllerName}->$hasMany = $class;
-				}
-			}
-			foreach($this->controller->{$controllerName}->belongsTo as $belongsTo){
-				$class = '\models\\' . $belongsTo . 'Model';
-				if(class_exists($class)){
-					$class = new $class($belongsTo);
-					$this->controller->{$controllerName}->$belongsTo = $class;
+					$class = new $class($modelName);
+					$model->$modelName = $class;
 				}
 			}
 		}

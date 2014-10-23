@@ -39,7 +39,7 @@ class Model{
 		return $this->query($sql, $params);
 	}
 	
-	public function first($id, $column = 'id'){
+	public function one($id, $column = 'id'){
 		$result = $this->find($id, $column);
 		return $result[0];
 	}
@@ -50,6 +50,57 @@ class Model{
 			FROM " . $this->table . "
 		";
 		return $this->query($sql);
+	}
+	
+	public function create($model){
+		//$validator = new \Validator();
+		//$valid = $validator->validate($this, $model);
+		$modelArray = get_object_vars($model);
+		$fields = '';
+		$paramKeys = '';
+		$params = array();
+		foreach($modelArray as $key => $value){
+			$fields .= $key . ',';
+			$paramKeys .= ':' . $key . ',';
+			$params[':' . $key] = $value;
+		}
+		$fields = rtrim($fields, ',');
+		$paramKeys = rtrim($paramKeys, ',');
+		$sql = "
+			INSERT INTO " . $this->table . "(" . $fields . ")
+			VALUES (" . $paramKeys . ")
+		";
+		return $this->query($sql, $params, true);
+	}
+	
+	public function save($model){
+		//$validator = new \Validator();
+		//$valid = $validator->validate($this, $model);
+		$modelArray = get_object_vars($model);
+		$fields = '';
+		$params = array();
+		foreach($modelArray as $key => $value){
+			if($key !== 'id'){
+				$fields .= $key . ' = :' . $key .',';
+			}
+			$params[':' . $key] = $value;
+		}
+		$fields = rtrim($fields, ',');
+		$sql = "
+			UPDATE " . $this->table . "
+			SET " . $fields . "
+			WHERE " . $this->table . ".id = :id
+		";
+		return $this->query($sql, $params, true);
+	}
+	
+	public function delete($model){
+		$sql = "
+			DELETE FROM " . $this->table . "
+			WHERE " . $this->table . ".id = :id
+		";
+		$params = array(':id' => $model->id);
+		return $this->query($sql, $params, true);
 	}
 
 	protected function query($sql, $params = null, $insert = false){
@@ -73,5 +124,20 @@ class Model{
 			return $response;
 		}
 		return null;
+	}
+	
+	public function check(&$model){
+		$validFields = array();
+		if(isset($this->allowedFields)){
+			foreach($model as $key => $value){
+				if(in_array($key, $this->allowedFields)){
+					$validFields[$key] = $value;
+				}
+				else{
+					//throw new \Exception('Post contains unallowed field: ' . $key);
+				}
+			}
+		}
+		$model = (object)$validFields;
 	}
 }
