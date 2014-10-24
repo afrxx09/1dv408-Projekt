@@ -1,6 +1,7 @@
 <?php
 
 class Config{
+	const DEFAULT_LAYOUT = 'default.php';
 	const DEFAULT_CONTROLLER = 'StaticPages';
 	const DEFAULT_ACTION = 'index';
 

@@ -25,12 +25,16 @@ class CategoryController extends \core\AppController{
 		if($this->Category->create($newCategory)){
 			$this->redirectTo('category');
 		}
-		$this->redirectTo('category#add');
+		$this->redirectTo('category', 'add');
 	}
 	
 	public function edit(){
 		$category = $this->Category->one($this->params[0]);
+		if($category === null){
+			$this->redirectTo('category');
+		}
 		$this->view->setVar('category', $category);
+
 	}
 	
 	public function save(){

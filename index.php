@@ -6,6 +6,13 @@ define('DS', DIRECTORY_SEPARATOR);
 define('ROOT_DIR', dirname(__FILE__) . DS);
 define('ROOT_PATH', '/' . basename(dirname(__FILE__)) . '/');
 
+define('APP_DIR', ROOT_DIR . 'app' . DS);
+define('LAYOUT_DIR', APP_DIR . 'layout' . DS);
+define('CONTROLLER_DIR', APP_DIR . 'controllers' . DS);
+define('VIEW_DIR', APP_DIR . 'views' . DS);
+define('MODEL_DIR', APP_DIR . 'models' . DS);
+define('HELPER_DIR', ROOT_DIR . 'helpers' . DS);
+
 require_once(ROOT_DIR . 'lib' . DS . 'autoload.php');
 require_once(ROOT_DIR . 'app' . DS . 'routes.php');
 

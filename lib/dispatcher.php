@@ -1,5 +1,10 @@
 <?php
 
+/**
+*	Dispatcher class, the engine of the application
+*	Reads the request to detemine what controller, views and models to initiate.
+*	Dispatches the request and uses layoutView class to render the result. 
+*/
 class Dispatcher{
 	private $url;
 	private $controllerName;
@@ -20,14 +25,20 @@ class Dispatcher{
 		$this->setView();
 		$this->setModel($this->controllerName);
 	}
-
+	
+	/**
+	*	Get the request and prepare it for parsing
+	*/
 	private function getURL(){
 		$url = isset($_GET['url']) ? $_GET['url'] : '';
 		$url = rtrim($url, '/');
 		$url = filter_var($url, FILTER_SANITIZE_URL);
 		$this->url = $url;
 	} 
-
+	
+	/**
+	*	Parse url to determine the main controller, it's action method and potential paramters for the request
+	*/
 	private function parseURL(){
 		$route = explode('/', $this->url);
 		$root = \Routes::getRoot();
@@ -43,7 +54,10 @@ class Dispatcher{
 			}
 		}
 	}
-
+	
+	/**
+	*	Initiate the main controller for the request and pass the parameters to it
+	*/
 	private function setController(){
 		$class = '\controllers\\' . $this->controllerName . 'Controller';
 		if(!class_exists($class)){
@@ -51,9 +65,11 @@ class Dispatcher{
 		}
 		$this->controller = new $class();
 		$this->controller->setParams($this->params);
-		
 	}
 	
+	/**
+	*	Initiate the view-class that belongs to the controller. If there is no view-class created it will fall back on the base-class to be able to handle basic rendering
+	*/
 	private function setView(){
 		$class = '\views\\' . $this->controllerName . 'View';
 		if(class_exists($class)){
@@ -64,7 +80,10 @@ class Dispatcher{
 		}
 		$this->controller->setView($this->view);
 	}
-
+	
+	/**
+	*	Initiate the main model for the controller, also looking at associated model and initiating them into the main model
+	*/
 	private function setModel($controllerName){
 		$class = '\models\\' . $controllerName . 'Model';
 		if(class_exists($class)){
@@ -82,14 +101,21 @@ class Dispatcher{
 			}
 		}
 	}
-
+	
+	/**
+	*	Execute the request.
+	*	Runs the specified action-method in the controller and handles the response.
+	*	A response from a controller class should either be a string that will be renderd in the layout.
+	*	If the response is null, its presumed that a view-file should be used for rendering the content.
+	*	Last, the layoutView asks the view for any declared css or javascript files that should be used in the renderd document
+	*/
 	public function dispatch(){
 		if(!method_exists($this->controller, $this->action)){
 			throw new \Exception('Could not find action: ' . $this->action . ' in controller: ' . $this->controllerName);
 		}
 		
 		$result = call_user_func(array($this->controller, $this->action));
-		//$view = $this->controller->getView();
+		
 		if($result !== null){
 			$this->layoutView->add('content', $result);
 		}
@@ -101,7 +127,10 @@ class Dispatcher{
 		$this->layoutView->setCSS($this->view->getCSS());
 		$this->render();
 	}
-
+	
+	/**
+	*	Using the layoutView, renders the complete HTML document
+	*/
 	public function render(){
 		try{
 			$layoutHTML = $this->layoutView->render();
