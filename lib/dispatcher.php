@@ -89,6 +89,7 @@ class Dispatcher{
 		if(class_exists($class)){
 			$class = new $class($controllerName);
 			$this->controller->{$controllerName} = $class;
+			$this->view->setModel($class);
 			
 			$model = $this->controller->{$controllerName};
 			$relations = array_merge($model->hasOne, $model->hasMany, $model->belongsTo);
@@ -99,6 +100,10 @@ class Dispatcher{
 					$model->$modelName = $class;
 				}
 			}
+		}
+		else{
+			$appModel = new \core\AppModel();
+			$this->view->setModel($appModel);
 		}
 	}
 	

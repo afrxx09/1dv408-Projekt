@@ -1,5 +1,10 @@
 <?php
 
+/**
+*	requires class files based on namespace and class name.
+*	Classes without namespace are presumed to be framwork files so they are include from lib-folder.
+*	Other classes are found in app-folder and namespace decides what sub-folder.
+*/
 function AutoLoadClasses($class){
 	$class = ltrim($class, '\\');
 

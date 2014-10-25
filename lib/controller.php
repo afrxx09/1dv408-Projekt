@@ -1,11 +1,22 @@
 <?php
 
+/**
+*	Main controller class.
+*	Methods mostly used by dispatcher to controll the flow of the application.
+*/
 class Controller{
 	
 	protected $params;
 	protected $view;
-	public $models = array();
 
+	public function __set($key, $val){
+		$this->{$key} = $val;
+	}
+	
+	public function __get($key){
+		return (isset($this->{$key})) ? $this->{$key} : null;
+	}
+	
 	protected function redirectTo($controller = null, $action = null, $param = null){
 		$path = ($controller !== null) ? $controller : \Config::DEFAULT_CONTROLLER;
 		if($action !== null){
@@ -24,13 +35,5 @@ class Controller{
 	
 	public function setView($view){
 		$this->view = $view;
-	}
-	
-	public function __set($key, $val){
-		$this->{$key} = $val;
-	}
-	
-	public function __get($key){
-		return (isset($this->{$key})) ? $this->{$key} : null;
 	}
 }

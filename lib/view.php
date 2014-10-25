@@ -12,6 +12,7 @@ class View{
 	protected $javascript = array();
 	protected $app_css = array();
 	protected $css = array();
+	protected $model;
 	
 	/**
 	*	Sets variables for view-files before rendering them
@@ -88,5 +89,9 @@ class View{
 	/** Basic cleanup of $_POST-variable */
 	protected function sanitize($input) {
         return filter_var(trim($input), FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW);
+    }
+    
+    public function setModel($model){
+    	$this->model = $model;
     }
 }
