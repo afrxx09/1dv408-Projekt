@@ -44,7 +44,7 @@ class CategoryController extends \core\AppController{
 	public function save(){
 		$category = $this->view->getPost();
 		if($this->Category->save($category)){
-			$this->Session->setFlash('category saved : ' . $newCategory->name, 'success');
+			$this->Session->setFlash('category saved : ' . $category->name, 'success');
 			$this->redirectTo('category' ,'view', $category->id);
 		}
 		$this->Session->setFlash('Could not save category', 'error');

@@ -1,5 +1,9 @@
 <h2>Products</h2>
 <?= isset($flash) ? $flash : '' ?>
+<div>
+	<p><a href="<?= \Routes::getRoute('product#add') ?>">Add Product</a></p>
+</div>
+<?php if($products !== null && !empty($products)){ ?>
 <div id="product-list">
 <?php foreach ($products as $product) { ?>
 	<div class="product-row">
@@ -17,3 +21,11 @@
 	</div>
 <?php } ?>
 </div>
+<?php
+}
+else{
+?>
+	<p>No products</p>
+<?php
+}
+?>

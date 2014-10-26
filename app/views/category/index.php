@@ -1,5 +1,9 @@
 <h2>Categories</h2>
 <?= isset($flash) ? $flash : '' ?>
+<div>
+	<p><a href="<?= \Routes::getRoute('category#add') ?>">Add Category</a></p>
+</div>
+<?php if($categories !== null && !empty($categories)){ ?>
 <div id="category-list">
 <?php foreach ($categories as $category) { ?>
 	<div class="category-row">
@@ -15,5 +19,15 @@
 		</div>
 		
 	</div>
-<?php } ?>
+<?php
+	}
+?>
 </div>
+<?php
+}
+else{
+?>
+	<p>No categories</p>
+<?php
+}
+?>

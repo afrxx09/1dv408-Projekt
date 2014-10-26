@@ -17,7 +17,7 @@
 		</div>
 		<div class="form-row">
 			<label for="description">Description</label>
-			<input type="text" name="description" id="description" value="" />
+			<textarea name="description" id="description"></textarea>
 		</div>
 		<div class="form-row">
 			<input type="submit" value="Create" />
