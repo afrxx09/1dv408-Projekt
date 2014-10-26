@@ -1,12 +1,15 @@
 #1dv408 - Webbutveckling med PHP - Linneaus University 2014
+
 [Course homepage](https://coursepress.lnu.se/kurs/webbutveckling-med-php/)
+
 [Assignment instructions(in Swedish)](https://coursepress.lnu.se/kurs/webbutveckling-med-php/laborationsmiljo/projekt/)
+
 Project start: 2014-10-6
 Assigned time: 60 hours
 Actual start: 2014-10-12
 Actual time spent: 70 hours+
 
-##Come with example application
+##Comes with example application
 In order to test the framwork a simple example application is included for now.
 This example contains three controllers, one for regular pages, and two for CRUD operations.
 There is no real login in place, the link in the menu simply uses the Session-helper to switch a variable from true to false to simulate these two states.
