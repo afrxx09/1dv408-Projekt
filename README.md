@@ -1,4 +1,15 @@
-#1dv408 - Linneaus University 2014
+#1dv408 - Webbutveckling med PHP - Linneaus University 2014
+[Course homepage](https://coursepress.lnu.se/kurs/webbutveckling-med-php/)
+[Assignment instructions(in Swedish)](https://coursepress.lnu.se/kurs/webbutveckling-med-php/laborationsmiljo/projekt/)
+Project start: 2014-10-6
+Assigned time: 60 hours
+Actual start: 2014-10-12
+Actual time spent: 70 hours+
+
+
+##Other documentation
+Usecases can be found in this github-repo in the fodler "usecases"
+Class diagrams can be found in documentation folder.
 
 ##Un-named Framework
 The currently un-named framework is a light-weight PHP MVC framwork that is still in its early stages of development. The assigned project time was 60 hours including documentation and planning, wich left one to only focus on the essentials.
