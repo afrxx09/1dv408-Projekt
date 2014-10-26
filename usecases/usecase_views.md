@@ -4,6 +4,8 @@
 * PHP-server setup and framework installed in a accessable folder example: www/myProject/
 * Setup routes in routes.php (www/myProject/app/)
 
+app/routes.php
+
 	public static $routes = array(
 		'root' => 'pages#start',
 		'pages' => array('start', 'contact'),
@@ -11,6 +13,8 @@
 	);
 
 * Create controller "PagesController" for Pages class and save in www/myProject/app/controllers/ with filename "pages_controller.php"
+
+app/controllers/pages_controller.php
 
 	namespace controllers;
 	class PagesController extends \core\AppController{

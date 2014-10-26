@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-		<?= $this->get('content') ?>	
+		<?= $this->get('content') ?>
 		<?= $this->get('script') ?>
 	</body>
 
