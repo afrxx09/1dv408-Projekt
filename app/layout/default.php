@@ -3,30 +3,12 @@
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-		<title>Test application build with framework</title>
+		<title></title>
 		<?= $this->get('css') ?>
 	</head>
 
 	<body>
-		<div id="wrap">
-			
-			<div id="header">
-				<h1>Test application build with framework</h1>
-			</div>
-			
-			<?= $this->partial('menu') ?>
-			<?= $this->partial('admin_menu') ?>
-			
-			<div id="content">
-				<?= $this->get('content') ?>
-			</div>
-
-			<div id="footer-pusher"></div>
-			<div id="footer">
-				<p>footer</p>
-			</div>
-			
-		</div>
+		<?= $this->get('content') ?>	
 		<?= $this->get('script') ?>
 	</body>
 

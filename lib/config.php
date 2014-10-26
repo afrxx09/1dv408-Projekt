@@ -1,7 +1,7 @@
 <?php
 
 class Config{
-	const DEFAULT_LAYOUT = 'default.php';
+	const DEFAULT_LAYOUT = 'index.php';
 	const DEFAULT_CONTROLLER = 'Pages';
 	const DEFAULT_ACTION = 'index';
 
