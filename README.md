@@ -6,6 +6,12 @@ Assigned time: 60 hours
 Actual start: 2014-10-12
 Actual time spent: 70 hours+
 
+##Come with example application
+In order to test the framwork a simple example application is included for now.
+This example contains three controllers, one for regular pages, and two for CRUD operations.
+There is no real login in place, the link in the menu simply uses the Session-helper to switch a variable from true to false to simulate these two states.
+Once "logged in" one has access to the CRUD-operations of the application. Notice that there is no security here so if the correct path requested access to CRUD is still there.
+This has nothing to do with the framework, this is "application"-level programming.
 
 ##Other documentation
 Usecases can be found in this github-repo in the fodler "usecases"
