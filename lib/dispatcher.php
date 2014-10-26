@@ -43,7 +43,11 @@ class Dispatcher{
 	private function parseURL(){
 		$route = explode('/', $this->url);
 		$root = \Routes::getRoot();
-		if(empty($route[0]) && $root !== null){
+		if(empty($route[0]) && $root[0] === ''){
+			$this->controllerName = \Config::DEFAULT_CONTROLLER;
+			$this->action = \Config::DEFAULT_ACTION;
+		}
+		elseif(empty($route[0]) && ($root !== null || $root !== '')){
 			$this->controllerName = ucFirst($root[0]);
 			$this->action = isset($root[1]) ? $root[1] : \Config::DEFAULT_ACTION;
 		}

@@ -7,10 +7,9 @@
 2. Framework installed in a folder www folder where it can be run (example: \www\myProject)
 3. Go to lib-folder and rename "_example_config.php" to "config.php"
 4. Open file and change settings for DEAFULT_CONTROLLER and DEFAULT_ACTION if you wish.
-5. Change settings for database to make sure it can get access
 
 ###UC1 - Adding root route
-1. Find and open file: /lib/routes.php
+1. Find and open file: /app/routes.php
 2. Find the "private static $routes array"
 3. Add key "root" with value"''"(empty string) to array ```'root' => '' ´´´
 4. Go to web broswer and visit the root path of project
@@ -24,7 +23,7 @@
 3. go to the relative url of the projekt: "mycontroller/theaction" (example: localhost/myProject/myController/theaction)
 
 ####Expected outcome
-	Exception error: Can not find controller class "mycontroller"
+	Exception error: Can not find controller class "myController"
 
 ###UC3 - Adding adding standard routes for controller
 1. UC1: step 1 and 2
@@ -43,15 +42,14 @@
 	Exception error: Can not find controller class "category"
 
 ####Alternative Scenarios
+Visit standardroute with parameter without supplying paramater in url path
 3.1 Visit the folowing relative url's:
 	* "category/edit"  (example: localhost/myProject/category/edit)
 	* "category/delete" (example: localhost/myProject/category/delete)
 	* "category/view" (example: localhost/myProject/category/view)
 
 ####Expected outcome
-	Exception error: "Action: edit in controller: category requires a parameter"
-	Exception error: "Action: delete in controller: category requires a parameter"
-	Exception error: "Action: view in controller: category requires a parameter"
+	Exception error: Can not find controller class "category"
 
 ###UC4 - Adding selection of standard routes for controller 
 1. UC1: step 1 and 2
@@ -69,17 +67,17 @@
 ####Alternative Scenarios
 3. Visit the folowing relative url's:
 	1. "product/view" (example: localhost/myProject/product/view)
-		* Exception error: "Action: delete in controller: category requires a parameter"
+		* Exception error: Can not find controller class "product"
 	2. "product/index" (example: localhost/myProject/product/index)
 		* Exception error: Can not find controller class "product"
 
 ## Bulding controllers and accessing action methods with routes
 
 ### Preconditions
-* UC 1-4 Adding routes(Need routes to be set before they are accessable)
+* UC 1-4 Adding routes(Need routes to be set before controllers are accessable)
 
 ###UC5 - Create default controller
-1. Create a default controller class called "WelcomeController" with filename "welcome_controler.php" and save it in "www\myProject\app\controllers\"
+1. Create a default controller class called "WelcomeController"  that inherits(extends) from \core\AppController with filename "welcome_controler.php" and save it in "www\myProject\app\controllers\"
 2. Add namespace controllers;
 3. Add a public method called "index" and for now just let it echo out "index"
 
@@ -95,7 +93,7 @@ welcome_controller.php :
 3. Visit root path of project "localhost/myProject/"
 
 ####Expected outcome
-	'index' is printed
+	output: 'index'
 
 ####Alternative scenarios
 2.1.1 Do not add index-method to controller

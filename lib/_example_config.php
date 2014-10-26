@@ -2,7 +2,7 @@
 
 class Config{
 	const DEFAULT_LAYOUT = 'default.php';
-	const DEFAULT_CONTROLLER = 'StaticPages';
+	const DEFAULT_CONTROLLER = 'welcome';
 	const DEFAULT_ACTION = 'index';
 
 	const DB_PASSWORD = '';
