@@ -8,9 +8,9 @@
 class View{
 	
 	protected $vars = array();
-	protected $app_javascript = array();
+	protected $appJavascript = array();
 	protected $javascript = array();
-	protected $app_css = array();
+	protected $appCss = array();
 	protected $css = array();
 	protected $model;
 	
@@ -69,21 +69,12 @@ class View{
 	
 	/** Used by layoutView class to get all javascript files needed for current request */
 	public function getScript(){
-		return array_merge($this->app_javascript, $this->javascript);
+		return array_merge($this->appJavascript, $this->javascript);
 	}
 	
 	/** Used by layoutView class to get all css files needed for current request */
 	public function getCSS(){
-		return array_merge($this->app_css, $this->css);
-	}
-	
-	/**  method to access the $_POST-variable by controller classes */
-	public function getPost(){
-		$return = array();
-		foreach($_POST as $key => $post){
-			$return[$key] = $this->sanitize($post);
-		}
-		return $return;
+		return array_merge($this->appCss, $this->css);
 	}
 	
 	/** Basic cleanup of $_POST-variable */
@@ -94,4 +85,29 @@ class View{
     public function setModel($model){
     	$this->model = $model;
     }
+
+    /**  
+    *	Method to access the $_POST-variable by controller classes.
+    *	Can be retreived as either clean $_POST array or as a stdClass-object
+    *	@param bool $getClean, get unmodified clean $_POST variable
+    *	@return mixed, either unmodified $_POST array, or $_POST turned into stdClass-object
+    *	but mainly used to get stdClass-objects filterd through a model's allowedfields
+    */
+	public function getPost($getClean = false){
+		if(isset($this->allowedFields) && !empty($this->allowedFields) && $getClean === false){
+			$return = array();
+			foreach($_POST as $key => $post){
+				if(in_array($key, $this->allowedFields)){
+					$return[$key] = $this->sanitize($post);
+				}
+			}
+			return (object)$return;
+		}
+		elseif($getClean !== true){
+			return (object)$_POST;
+		}
+		else{
+			return $_POST;
+		}
+	}
 }

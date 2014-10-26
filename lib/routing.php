@@ -16,6 +16,14 @@ class Routing{
 	);
 
 	/**
+	*	Get controller and action for root path
+	*	@return 
+	*/
+	public static function getRoot(){
+		return isset(\Routes::$routes['root']) ? explode('#', \Routes::$routes['root']) : null;
+	}
+
+	/**
 	*	Creates a relative url-path from available routes if it's found in the $routes array
 	*	@param string $route, name of route
 	*	@param array $param, array of parameters for paths that needs it 
@@ -103,9 +111,5 @@ class Routing{
 			throw new \Exception('Can not find routes for controller: "' . $controllerRequest . '"');
 		}
 		throw new \Exception('Route does not exsist: "' . $request . '"');
-	}
-
-	public static function getRoot(){
-		return isset(\Routes::$routes['root']) ? explode('#', \Routes::$routes['root']) : null;
 	}
 }

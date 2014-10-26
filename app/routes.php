@@ -16,9 +16,7 @@ class Routes extends \Routing{
 	*/
 	public static $routes = array(
 		'root' => 'pages#start',
-		'test' => 'pages#test{id}',
-		'testtwo' => 'pages',
-		'pages' => array('start', 'contact'),
+		'pages' => array('start', 'contact', 'categories', 'login', 'logout'),
 		'category' => 'all',
 		'product' => 'all'
 	);

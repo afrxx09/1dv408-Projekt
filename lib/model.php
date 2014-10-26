@@ -40,32 +40,12 @@ class Model{
 	*/
 	protected function connection(){
 		if($this->dbConnection == null){
-			$this->dbConnection = new \PDO('mysql:host=' . \Config::DB_HOST . ';dbname=' . \Config::DB_NAME, \Config::DB_USERNAME, \Config::DB_PASSWORD);
+			$this->dbConnection = new \PDO('mysql:host=' . \Config::DB_HOST . ';dbname=' . \Config::DB_NAME . ';charset=utf8', \Config::DB_USERNAME, \Config::DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
 			if(\Config::DEBUG){
 				$this->dbConnection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 			}
 		}
 		return $this->dbConnection;
-	}
-	
-	/**
-	*	Check array keys to make sure it only contains allowed data declared by optional $allowedFields array in model-class
-	*	@param model array
-	*	@return array
-	*/
-	public function check(&$model){
-		$validFields = array();
-		if(isset($this->allowedFields) && !empty($this->allowedFields)){
-			foreach($model as $key => $value){
-				if(in_array($key, $this->allowedFields)){
-					$validFields[$key] = $value;
-				}
-				else{
-					//throw new \Exception('Post contains unallowed field: ' . $key);
-				}
-			}
-			$model = $validFields;
-		}
 	}
 	
 	/**
@@ -98,6 +78,10 @@ class Model{
 	*	@return array $stdClass
 	*/
 	public function all(){
+		//$q = $this->sql("SELECT description FROM category WHERE id = 1");
+		//var_dump($q[0]['description']);
+		//var_dump(mb_detect_encoding($q[0]['description']));
+		//exit;
 		$sql = "
 			SELECT " . $this->table . ".*
 			FROM " . $this->table . "

@@ -11,8 +11,12 @@ function AutoLoadClasses($class){
 	if(strripos($class, '\\') !== false){
 		$className = substr($class, strripos($class, '\\') + 1);
 		$namespace = explode('\\', $class, -1);
-
-		$dir = ROOT_DIR . 'app' . DS . strToLower(implode(DS, $namespace)) . DS;
+		if(!in_array('helpers', $namespace)){
+			$dir = APP_DIR . strToLower(implode(DS, $namespace)) . DS;
+		}
+		else{
+			$dir = HELPER_DIR; 
+		}
 	}
 	else{
 		$className = $class;

@@ -1,0 +1,20 @@
+#product-list{
+	display:block;
+	clear:both;
+}
+
+#product-list .product-row{
+	float:left;
+	width:100%;
+	margin: 5px 0;
+	background-color:#eee;
+}
+
+#product-list .product-row:nth-child(odd){
+	background-color:#fff;
+}
+
+#product-list .product-row .product-col{
+	display:block;
+	padding:5px 10px;
+}

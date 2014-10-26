@@ -1,6 +1,19 @@
 <h2>Products</h2>
-<ul id="product-list">
+<?= isset($flash) ? $flash : '' ?>
+<div id="product-list">
 <?php foreach ($products as $product) { ?>
-	<li><a href="<?= \Routes::getRoute('product#edit', array('id' => $product->id)) ?>"><?= $product->name ?></a></li>
+	<div class="product-row">
+		<div class="product-col left">
+			<a href="<?= \Routes::getRoute('product#view', array('id' => $product->id)) ?>"><?= $product->name ?></a>
+		</div>
+		
+		<div class="product-col right">
+			<a href="<?= \Routes::getRoute('product#delete', array('id' => $product->id)) ?>">Delete</a>
+		</div>
+		<div class="product-col right">
+			<a href="<?= \Routes::getRoute('product#edit', array('id' => $product->id)) ?>">Edit</a>
+		</div>
+		
+	</div>
 <?php } ?>
-</ul>
+</div>

@@ -1,4 +1,5 @@
 <h2>Add category</h2>
+<?= isset($flash) ? $flash : '' ?>
 <div>
 	<form method="post" action="<?= \Routes::getRoute('category#create') ?>">
 		<div class="form-row">

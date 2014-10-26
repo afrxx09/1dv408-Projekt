@@ -68,4 +68,9 @@ class LayoutView extends \View{
 		}
 		$this->add('css', $css);
 	}
+
+	public function render404(){
+		require_once(LAYOUT_DIR . '404.php');
+		exit;
+	}
 }

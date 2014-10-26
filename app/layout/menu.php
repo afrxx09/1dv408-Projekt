@@ -1,10 +1,13 @@
 <div id="nav">
 	<ul>
 		<li><a href="<?= \Routes::getRoute('root'); ?>">Start</a></li>
-		<li><a href="<?= \Routes::getRoute('category'); ?>">Kategorier</a></li>
+		<li><a href="<?= \Routes::getRoute('pages#categories'); ?>">Kategorier</a></li>
 		<li><a href="<?= \Routes::getRoute('pages#contact'); ?>">Kontakt</a></li>
-		<li><a href="<?= \Routes::getRoute('category#view', array('id' => 2)); ?>">Category view 2</a></li>
-		<li><a href="<?= \Routes::getRoute('test', array('id' => 2)); ?>">Test</a></li>
+		<?php if(isset($_SESSION['admin']) && $_SESSION['admin']){ ?>
+		<li><a href="<?= \Routes::getRoute('pages#logout'); ?>">Logout</a></li>
+		<?php } else { ?>
+		<li><a href="<?= \Routes::getRoute('pages#login'); ?>">Login</a></li>
+		<?php } ?>
 	</ul>
 	<div class="clear"></div>
 </div>

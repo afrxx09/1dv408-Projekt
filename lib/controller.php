@@ -8,6 +8,8 @@ class Controller{
 	
 	protected $params;
 	protected $view;
+	protected $helpers = array();
+	protected $appHelpers = array(); 
 
 	public function __set($key, $val){
 		$this->{$key} = $val;
@@ -35,5 +37,9 @@ class Controller{
 	
 	public function setView($view){
 		$this->view = $view;
+	}
+
+	public function getHelpers(){
+		return array_merge($this->helpers, $this->appHelpers);
 	}
 }

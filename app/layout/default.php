@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 	<head>
-		<title></title>
 		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Test application build with framework</title>
 		<?= $this->get('css') ?>
 	</head>
 
@@ -11,10 +11,11 @@
 		<div id="wrap">
 			
 			<div id="header">
-				<h1>Product Catalog built with Framework</h1>
+				<h1>Test application build with framework</h1>
 			</div>
 			
 			<?= $this->partial('menu') ?>
+			<?= $this->partial('admin_menu') ?>
 			
 			<div id="content">
 				<?= $this->get('content') ?>

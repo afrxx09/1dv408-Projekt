@@ -3,9 +3,12 @@ namespace controllers;
 
 class CategoryController extends \core\AppController{
 	
+	protected $helpers = array('Session');
+
 	public function index(){
 		$categories = $this->Category->all();
 		$this->view->setVar('categories', $categories);
+		$this->view->setVar('flash', $this->Session->renderFlash());
 	}
 
 	public function view(){
@@ -21,10 +24,11 @@ class CategoryController extends \core\AppController{
 	
 	public function create(){
 		$newCategory = $this->view->getPost();
-		$this->Category->check($newCategory);
 		if($this->Category->create($newCategory)){
+			$this->Session->setFlash('category created : ' . $newCategory->name, 'success');
 			$this->redirectTo('category');
 		}
+		$this->Session->setFlash('Could not create category', 'error');
 		$this->redirectTo('category', 'add');
 	}
 	
@@ -39,18 +43,22 @@ class CategoryController extends \core\AppController{
 	
 	public function save(){
 		$category = $this->view->getPost();
-		$this->Category->check($category);
 		if($this->Category->save($category)){
+			$this->Session->setFlash('category saved : ' . $newCategory->name, 'success');
 			$this->redirectTo('category' ,'view', $category->id);
 		}
+		$this->Session->setFlash('Could not save category', 'error');
 		$this->redirectTo('category', 'edit', $category->id);
 	}
 	
 	public function delete(){
 		$category = $this->Category->one($this->params[0]);
 		if($category !== null && $this->Category->delete($category)){
-			$this->redirectTo('category');
+			$this->Session->setFlash('Successfully Deleted category : ' . $category->name, 'success');
 		}
-		return 'Could not delete category.';
+		else{
+			$this->Session->setFlash('Could not find category id: ' . $this->params[0], 'error');
+		}
+		$this->redirectTo('category');
 	}
 }

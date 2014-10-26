@@ -22,6 +22,7 @@ class Dispatcher{
 		$this->getURL();
 		$this->parseURL();
 		$this->setController();
+		$this->setHelpers();
 		$this->setView();
 		$this->setModel($this->controllerName);
 	}
@@ -66,6 +67,20 @@ class Dispatcher{
 		$this->controller = new $class();
 		$this->controller->setParams($this->params);
 	}
+
+	/**
+	*	Look into controller if it has any helpers declared, if so initate them
+	*/
+	private function setHelpers(){
+		$helpers = $this->controller->getHelpers();
+		foreach($helpers as $helper){
+			$class = '\helpers\\' . $helper . 'Helper';
+			if(class_exists($class)){
+				$class = new $class();
+				$this->controller->{$helper} = $class;
+			}
+		}
+	}
 	
 	/**
 	*	Initiate the view-class that belongs to the controller. If there is no view-class created it will fall back on the base-class to be able to handle basic rendering
@@ -102,7 +117,7 @@ class Dispatcher{
 			}
 		}
 		else{
-			$appModel = new \core\AppModel();
+			$appModel = new \core\AppModel(null);
 			$this->view->setModel($appModel);
 		}
 	}

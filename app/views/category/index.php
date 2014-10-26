@@ -1,6 +1,19 @@
 <h2>Categories</h2>
-<ul id="category-list">
+<?= isset($flash) ? $flash : '' ?>
+<div id="category-list">
 <?php foreach ($categories as $category) { ?>
-	<li><a href="<?= \Routes::getRoute('category#view', array('id' => $category->id)) ?>"><?= $category->name ?></a></li>
+	<div class="category-row">
+		<div class="category-col left">
+			<a href="<?= \Routes::getRoute('category#view', array('id' => $category->id)) ?>"><?= $category->name ?></a>
+		</div>
+		
+		<div class="category-col right">
+			<a href="<?= \Routes::getRoute('category#delete', array('id' => $category->id)) ?>">Delete</a>
+		</div>
+		<div class="category-col right">
+			<a href="<?= \Routes::getRoute('category#edit', array('id' => $category->id)) ?>">Edit</a>
+		</div>
+		
+	</div>
 <?php } ?>
-</ul>
+</div>

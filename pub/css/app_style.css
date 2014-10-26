@@ -5,14 +5,24 @@ html *{
 
 body{
 	background-color:#e6f6e6;
+	font-family:Verdana, Geneva, sans-serif;
 }
 
 /* ELEMENTS */
 h1,h2,h3,h4,h5,h6{
+	font-family:"Trebuchet MS", Helvetica, sans-serif;
 	margin:1em 0 .5em 0;
 }
 p{
 	margin:0 0 .5em 0;
+}
+a{
+	color:#1a1;
+	text-decoration:none;
+}
+a:hover{
+	color:#1c1;
+	text-decoration:underline;
 }
 
 /* CLASSES */
@@ -44,12 +54,12 @@ p{
 	display:block;
 	padding:10px 40px;
 	text-decoration:none;
-	background-color:#6c6;
+	background-color:#1a1;
 	color:#fff;
 }
 #nav ul li a:hover{
 	text-decoration:underline;
-	background-color:#3e3;
+	background-color:#1c1;
 }
 
 #footer-pusher{
@@ -64,4 +74,49 @@ p{
 	height:50px;
 	width:960px;
 	text-align:center;
+}
+
+#admin-menu{
+	display:block;
+	position:absolute;
+	top:0;
+	right:0;
+	list-style:none;
+}
+#admin-menu li a{
+	display:block;
+	padding:5px 10px;
+	font-size:0.8em;
+	font-weight:bold;
+	background-color:#fff;
+}
+#admin-menu li a:hover{
+	background-color:#1a1;
+	color:#fff;
+}
+
+
+/* FLASH MESSAGES */
+.flash-messages{
+	display:block;
+}
+.flash-messages *{
+	margin:0;
+	padding:0;
+}
+.flash-message{
+	display:block;
+	padding:5px 20px;
+	margin:5px 0;
+	color:white;
+}
+.flash-message.flash-error{
+	background-color:red;
+}
+.flash-message.flash-warning{
+	background-color:yellow;
+}
+
+.flash-message.flash-success{
+	background-color:green;
 }
