@@ -37,6 +37,13 @@ The Layout View will take the result and add it to the layout of the application
 The LayoutView also has the power to add "partials", independent html templates, to the layout as well ass dynamically adding required CSS and javascript files.
 CSS and javascript can be added on "application"-level and "controller"-level, in other words, one can create CSS that runs on the entire application as well as smaller more specific ones in just local parts of the application.
 
+####Installation
+Set up a webserver or a webhost with PHP-server and (preferably) MySQL.
+Download framework and put in a web-accessable folder of you choosing, normaly the "www"-folder.
+Go through the minimal "_example_config.php" and update settings if desired. It's recommended to setup correct database options.
+rename the "_example_config.php" to "config.php" or copy it and name the copy "config.php".
+Now just set up routes, add controllers, views and models and get to work!
+
 ####Routing
 The framework uses .htaccess to re-write paths into more SEO-friendly ones. This is also how to navigate throug applications.
 Instead of accessing php-files and rendering them with paths like:
@@ -236,3 +243,41 @@ app/views/my_view.php
 	<h1><?= $object->name ?></h1>
 	<p><?= $object->description ?></p>
 
+
+####Models
+This is the heavy bit, since it contains the business logic this is a never ending project.
+The base model has some basic CRUD-functionality and it helps getting access between models in the application if an association is declared.
+It also lets one decide what attributes are accepted in object created by and for the model with an "allowedFields" array.
+One might want to restrict object to only contain id and name for example. If someone manipulates a post for example the post matches "allowedFields" to only let the predefined attriubutes pass through.
+
+#####MODEL CRUD
+How to CRUD.
+Over simplified examples, but this shows how little code it takes to read and write to the database thanks to the massive(but still small) functionality of the base Model class and the dispatcher. 
+
+
+	namespace models;
+	class MyModel extends \core\AppModel{
+		public $allowedFields('id', 'name');
+		public $hasMany('MyOther');
+	}
+
+
+	namespace controllers;
+	class MyController extends \core\AppController{
+		
+		/*Use param of request to find a post with a specific id*/
+		public function view(){
+			$my = $this->My->one($this->params[0])
+			//...Render in view or whatever with $my-object
+		}
+		
+		public function create(){
+			$newMy = $this->view->getPost();
+			$this->My->create($newMy);
+		}
+		
+		public function delete(){
+			$my = $this->My->one($this->params[0]);
+			$this->My->Delete($my);
+		}
+	}
